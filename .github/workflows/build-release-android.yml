@@ -1,0 +1,139 @@
+name: Build and Release Android APK
+
+# Required repository secrets:
+#   RELEASE_KEYSTORE_BASE64  — base64-encoded release keystore file
+#                              Generate: base64 -i my-release-key.keystore | pbcopy
+#   KEYSTORE_PASSWORD        — keystore store password
+#   KEY_ALIAS                — key alias inside the keystore
+#   KEY_PASSWORD             — key password
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v0.1.0-alpha)'
+        required: true
+        default: 'v0.1.0-alpha'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      # Cache Gradle wrapper + caches to dramatically speed up subsequent builds
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle*', 'android/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: gradle-${{ runner.os }}-
+
+      # Cache node_modules to skip re-installing unchanged deps
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          restore-keys: bun-${{ runner.os }}-
+
+      - name: Install JS dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
+      # Decode the base64 keystore secret and write keystore.properties so
+      # android/app/build.gradle can pick up the release signing credentials.
+      - name: Configure release signing
+        env:
+          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > android/app/expensso-release.keystore
+          {
+            echo "storeFile=$(pwd)/android/app/expensso-release.keystore"
+            echo "storePassword=$KEYSTORE_PASSWORD"
+            echo "keyAlias=$KEY_ALIAS"
+            echo "keyPassword=$KEY_PASSWORD"
+          } > android/keystore.properties
+
+      - name: Get version from package.json
+        id: pkg
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build release APKs
+        run: bun run build:release
+
+      # ABI splits produce multiple APKs; rename them all for clarity.
+      # Outputs: Expensso-v0.1.0-alpha-arm64-v8a.apk, Expensso-v0.1.0-alpha-universal.apk, etc.
+      - name: Rename APKs
+        run: |
+          VERSION="${{ steps.pkg.outputs.version }}"
+          APK_DIR="android/app/build/outputs/apk/release"
+          for apk in "$APK_DIR"/app-*-release.apk; do
+            base=$(basename "$apk")
+            # Strip leading "app-" and trailing "-release.apk", add our prefix
+            abi="${base#app-}"
+            abi="${abi%-release.apk}"
+            mv "$apk" "$APK_DIR/Expensso-v${VERSION}-${abi}.apk"
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.version || github.ref_name }}
+          name: Expensso v${{ steps.pkg.outputs.version }}
+          draft: false
+          prerelease: false
+          files: android/app/build/outputs/apk/release/Expensso-*.apk
+          body: |
+            ## Expensso v${{ steps.pkg.outputs.version }}
+
+            ### APK variants
+            | File | Recommended for |
+            |------|----------------|
+            | `Expensso-v${{ steps.pkg.outputs.version }}-universal.apk` | Any device (largest) |
+            | `Expensso-v${{ steps.pkg.outputs.version }}-arm64-v8a.apk` | Modern phones (64-bit) |
+            | `Expensso-v${{ steps.pkg.outputs.version }}-armeabi-v7a.apk` | Older phones (32-bit) |
+            | `Expensso-v${{ steps.pkg.outputs.version }}-x86_64.apk` | x86 emulators / Chromebooks |
+
+            ### Installation
+            1. Download the APK for your device (universal if unsure).
+            2. Enable **Install from unknown sources** in device settings.
+            3. Open the downloaded APK to install.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
