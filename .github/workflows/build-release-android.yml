@@ -1,12 +1,5 @@
 name: Build and Release Android APK
 
-# Required repository secrets:
-#   RELEASE_KEYSTORE_BASE64  — base64-encoded release keystore file
-#                              Generate: base64 -i my-release-key.keystore | pbcopy
-#   KEYSTORE_PASSWORD        — keystore store password
-#   KEY_ALIAS                — key alias inside the keystore
-#   KEY_PASSWORD             — key password
-
 on:
   push:
     tags:
@@ -63,31 +56,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: node_modules
-          key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+          key: bun-${{ runner.os }}-${{ hashFiles('bun.lock', 'bun.lockb', 'package.json') }}
           restore-keys: bun-${{ runner.os }}-
 
       - name: Install JS dependencies
-        run: bun install --frozen-lockfile
+        run: bun install
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
-
-      # Decode the base64 keystore secret and write keystore.properties so
-      # android/app/build.gradle can pick up the release signing credentials.
-      - name: Configure release signing
-        env:
-          RELEASE_KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          echo "$RELEASE_KEYSTORE_BASE64" | base64 --decode > android/app/expensso-release.keystore
-          {
-            echo "storeFile=$(pwd)/android/app/expensso-release.keystore"
-            echo "storePassword=$KEYSTORE_PASSWORD"
-            echo "keyAlias=$KEY_ALIAS"
-            echo "keyPassword=$KEY_PASSWORD"
-          } > android/keystore.properties
 
       - name: Get version from package.json
         id: pkg
@@ -100,14 +76,16 @@ jobs:
 
       # ABI splits produce multiple APKs; rename them all for clarity.
       # Outputs: Expensso-v0.1.0-alpha-arm64-v8a.apk, Expensso-v0.1.0-alpha-universal.apk, etc.
+      # Note: unsigned APKs may carry a "-unsigned" suffix depending on AGP version.
       - name: Rename APKs
         run: |
           VERSION="${{ steps.pkg.outputs.version }}"
           APK_DIR="android/app/build/outputs/apk/release"
-          for apk in "$APK_DIR"/app-*-release.apk; do
+          for apk in "$APK_DIR"/app-*-release*.apk; do
             base=$(basename "$apk")
-            # Strip leading "app-" and trailing "-release.apk", add our prefix
+            # Strip leading "app-" and trailing "-release.apk" or "-release-unsigned.apk"
             abi="${base#app-}"
+            abi="${abi%-release-unsigned.apk}"
             abi="${abi%-release.apk}"
             mv "$apk" "$APK_DIR/Expensso-v${VERSION}-${abi}.apk"
           done
