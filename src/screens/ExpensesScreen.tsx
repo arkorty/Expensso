@@ -222,26 +222,29 @@ const ExpensesScreen: React.FC = () => {
         <Text style={s.headerTitle}>{t('expenses.title')}</Text>
       </Animated.View>
 
-      <FlatList
-        data={transactions}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TransactionItem transaction={item} onPress={handleDelete} />
-        )}
-        ListHeaderComponent={renderHeader}
-        ListEmptyComponent={
-          <EmptyState
-            icon="receipt"
-            title={t('expenses.noTransactions')}
-            subtitle={t('expenses.startTracking')}
-          />
-        }
-        ItemSeparatorComponent={() => (
-          <View style={[s.separator, {backgroundColor: colors.outlineVariant + '30'}]} />
-        )}
-        contentContainerStyle={{paddingBottom: 80 + insets.bottom}}
-        showsVerticalScrollIndicator={false}
-      />
+      {renderHeader()}
+
+      <View style={s.listContainer}>
+        <FlatList
+          data={transactions}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <TransactionItem transaction={item} onPress={handleDelete} />
+          )}
+          ListEmptyComponent={
+            <EmptyState
+              icon="receipt"
+              title={t('expenses.noTransactions')}
+              subtitle={t('expenses.startTracking')}
+            />
+          }
+          ItemSeparatorComponent={() => (
+            <View style={[s.separator, {backgroundColor: colors.outlineVariant + '30'}]} />
+          )}
+          contentContainerStyle={{paddingBottom: 80 + insets.bottom}}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
 
       {/* FAB */}
       <Pressable
@@ -482,6 +485,8 @@ function makeStyles(theme: MD3Theme) {
     summaryItem: {
       flex: 1,
       borderRadius: shape.large,
+      borderWidth: 1,
+      borderColor: colors.outlineVariant,
       padding: spacing.lg,
       alignItems: 'center',
     },
@@ -494,6 +499,17 @@ function makeStyles(theme: MD3Theme) {
       ...typography.titleMedium,
       fontWeight: '700',
       marginTop: 2,
+    },
+    listContainer: {
+      flex: 1,
+      backgroundColor: colors.surface,
+      marginHorizontal: spacing.xl,
+      marginTop: spacing.md,
+      borderRadius: shape.large,
+      borderWidth: 1,
+      borderColor: colors.outlineVariant,
+      overflow: 'hidden',
+      ...elevation.level1,
     },
     separator: {height: 1, marginLeft: 72},
     fab: {
@@ -511,6 +527,8 @@ function makeStyles(theme: MD3Theme) {
       flexDirection: 'row',
       backgroundColor: colors.surfaceContainerLow,
       borderRadius: shape.medium,
+      borderWidth: 1,
+      borderColor: colors.outlineVariant,
       padding: 4,
       marginBottom: spacing.xl,
     },

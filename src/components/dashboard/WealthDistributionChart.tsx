@@ -126,6 +126,8 @@ function makeStyles(theme: MD3Theme) {
       marginTop: spacing.xl,
       backgroundColor: colors.surfaceContainerLow,
       borderRadius: shape.large,
+      borderWidth: 1,
+      borderColor: colors.outlineVariant,
       padding: spacing.xl,
       ...elevation.level1,
     },
@@ -164,7 +166,7 @@ function makeStyles(theme: MD3Theme) {
     legendDot: {
       width: 10,
       height: 10,
-      borderRadius: 5,
+      borderRadius: 2,
     },
     legendText: {
       flex: 1,

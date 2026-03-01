@@ -174,7 +174,7 @@ function makeStyles(theme: MD3Theme) {
     iconCircle: {
       width: 40,
       height: 40,
-      borderRadius: 20,
+      borderRadius: 4,
       justifyContent: 'center',
       alignItems: 'center',
     },

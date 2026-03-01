@@ -152,7 +152,7 @@ const ModernDashboard: React.FC = () => {
         <RecentActivityList
           transactions={transactions}
           currency={baseCurrency}
-          onViewAll={() => navigation.navigate('Expenses')}
+          onViewAll={() => navigation.navigate('Transactions')}
         />
 
         <View style={s.bottomSpacer} />
@@ -196,7 +196,9 @@ function makeStyles(theme: MD3Theme) {
       backgroundColor: colors.primaryContainer,
       paddingHorizontal: spacing.md,
       paddingVertical: spacing.sm,
-      borderRadius: 20,
+      borderRadius: 4,
+      borderWidth: 1,
+      borderColor: colors.outline,
     },
     currencyText: {
       ...typography.labelMedium,

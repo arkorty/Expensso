@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 const TAB_ICONS: Record<string, {focused: string; unfocused: string}> = {
   Dashboard: {focused: 'view-dashboard', unfocused: 'view-dashboard-outline'},
-  Expenses: {focused: 'receipt', unfocused: 'receipt'},
+  Transactions: {focused: 'receipt', unfocused: 'receipt'},
   NetWorth: {focused: 'chart-line', unfocused: 'chart-line'},
   Settings: {focused: 'cog', unfocused: 'cog-outline'},
 };
@@ -71,7 +71,7 @@ const AppNavigator: React.FC = () => {
           options={{tabBarLabel: t('tabs.dashboard')}}
         />
         <Tab.Screen
-          name="Expenses"
+          name="Transactions"
           component={ExpensesScreen}
           options={{tabBarLabel: t('tabs.expenses')}}
         />

@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ import {BarChart, PieChart} from 'react-native-gifted-charts';
 
 import {SummaryCard, SectionHeader, TransactionItem, EmptyState} from '../components';
 import {useSettingsStore, useNetWorthStore, useExpenseStore} from '../store';
-import {formatCurrency, formatCompact, percentageChange} from '../utils';
+import {formatCurrency, formatCompact} from '../utils';
 import {COLORS} from '../constants';
 import {useThemeColors, useIsDarkTheme} from '../hooks';
 
@@ -280,7 +280,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary + '15',
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 20,
+    borderRadius: 0,
+    borderWidth: 1,
+    borderColor: COLORS.primary + '30',
   },
   currencyText: {
     fontSize: 13,
@@ -297,7 +299,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.surface,
     margin: 20,
     marginTop: 12,
-    borderRadius: 20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: COLORS.border,
     padding: 24,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 4},
@@ -359,7 +363,9 @@ const styles = StyleSheet.create({
   chartCard: {
     backgroundColor: COLORS.surface,
     marginHorizontal: 20,
-    borderRadius: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: COLORS.border,
     padding: 20,
     alignItems: 'center',
     shadowColor: '#000',
@@ -396,7 +402,7 @@ const styles = StyleSheet.create({
   legendDot: {
     width: 10,
     height: 10,
-    borderRadius: 5,
+    borderRadius: 2,
     marginRight: 8,
   },
   legendText: {
@@ -414,7 +420,9 @@ const styles = StyleSheet.create({
   transactionsList: {
     backgroundColor: COLORS.surface,
     marginHorizontal: 20,
-    borderRadius: 16,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: COLORS.border,
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},

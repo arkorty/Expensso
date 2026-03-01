@@ -228,7 +228,7 @@ const SettingsScreen: React.FC = () => {
               icon="information"
               iconColor="#7E57C2"
               label={t('settings.version')}
-              value="0.1.0 Alpha"
+              value="0.1.1-alpha"
             />
           </View>
         </Animated.View>
@@ -346,6 +346,8 @@ function makeStyles(theme: MD3Theme) {
     sectionCard: {
       backgroundColor: colors.surfaceContainerLow,
       borderRadius: shape.large,
+      borderWidth: 1,
+      borderColor: colors.outlineVariant,
       overflow: 'hidden',
       ...elevation.level1,
     },

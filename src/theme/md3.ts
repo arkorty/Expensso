@@ -167,67 +167,70 @@ export const MD3DarkColors: typeof MD3LightColors = {
 
 // ─── MD3 Typography Scale ────────────────────────────────────────────
 
-const fontFamily = 'System'; // Falls back to Roboto on Android, SF Pro on iOS
+const fontFamily = 'JetBrainsMono-Regular';
+const fontFamilyMedium = 'JetBrainsMono-Medium';
+const fontFamilySemiBold = 'JetBrainsMono-SemiBold';
+const fontFamilyBold = 'JetBrainsMono-Bold';
 
 export const MD3Typography = {
   displayLarge: {
-    fontFamily,
+    fontFamily: fontFamilyBold,
     fontSize: 57,
     fontWeight: '400' as const,
     lineHeight: 64,
     letterSpacing: -0.25,
   },
   displayMedium: {
-    fontFamily,
+    fontFamily: fontFamilyBold,
     fontSize: 45,
     fontWeight: '400' as const,
     lineHeight: 52,
     letterSpacing: 0,
   },
   displaySmall: {
-    fontFamily,
+    fontFamily: fontFamilySemiBold,
     fontSize: 36,
     fontWeight: '400' as const,
     lineHeight: 44,
     letterSpacing: 0,
   },
   headlineLarge: {
-    fontFamily,
+    fontFamily: fontFamilySemiBold,
     fontSize: 32,
     fontWeight: '400' as const,
     lineHeight: 40,
     letterSpacing: 0,
   },
   headlineMedium: {
-    fontFamily,
+    fontFamily: fontFamilySemiBold,
     fontSize: 28,
     fontWeight: '400' as const,
     lineHeight: 36,
     letterSpacing: 0,
   },
   headlineSmall: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 24,
     fontWeight: '400' as const,
     lineHeight: 32,
     letterSpacing: 0,
   },
   titleLarge: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 22,
     fontWeight: '500' as const,
     lineHeight: 28,
     letterSpacing: 0,
   },
   titleMedium: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 16,
     fontWeight: '500' as const,
     lineHeight: 24,
     letterSpacing: 0.15,
   },
   titleSmall: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 14,
     fontWeight: '500' as const,
     lineHeight: 20,
@@ -255,21 +258,21 @@ export const MD3Typography = {
     letterSpacing: 0.4,
   },
   labelLarge: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 14,
     fontWeight: '500' as const,
     lineHeight: 20,
     letterSpacing: 0.1,
   },
   labelMedium: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 12,
     fontWeight: '500' as const,
     lineHeight: 16,
     letterSpacing: 0.5,
   },
   labelSmall: {
-    fontFamily,
+    fontFamily: fontFamilyMedium,
     fontSize: 11,
     fontWeight: '500' as const,
     lineHeight: 16,
@@ -328,11 +331,11 @@ export const MD3Elevation = {
 
 export const MD3Shape = {
   none: 0,
-  extraSmall: 4,
-  small: 8,
-  medium: 12,
-  large: 16,
-  extraLarge: 28,
+  extraSmall: 2,
+  small: 2,
+  medium: 4,
+  large: 4,
+  extraLarge: 6,
   full: 9999,
 };
 

@@ -21,7 +21,13 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
 }) => {
   const {colors, typography, elevation, shape, spacing} = useTheme();
   return (
-    <View style={[styles.card, {backgroundColor: colors.surfaceContainerLow, ...elevation.level1}, style]}>
+    <View style={[styles.card, {
+      backgroundColor: colors.surfaceContainerLow,
+      borderRadius: shape.small,
+      borderWidth: 1,
+      borderColor: colors.outlineVariant,
+      ...elevation.level1
+    }, style]}>
       <View style={styles.cardHeader}>
         {icon && <View style={styles.iconContainer}>{icon}</View>}
         <Text style={[styles.cardTitle, {color: colors.onSurfaceVariant}]}>{title}</Text>
@@ -36,7 +42,6 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 16,
     padding: 16,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},

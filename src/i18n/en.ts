@@ -18,7 +18,7 @@ export default {
     // ─── Tabs ───
     tabs: {
       dashboard: 'Dashboard',
-      expenses: 'Expenses',
+      expenses: 'Transactions',
       netWorth: 'Net Worth',
       settings: 'Settings',
     },
@@ -38,9 +38,9 @@ export default {
       lastMonth: 'Last Month',
     },
 
-    // ─── Expenses ───
+    // ─── Transactions ───
     expenses: {
-      title: 'Expenses',
+      title: 'Transactions',
       addExpense: 'Add Expense',
       addIncome: 'Add Income',
       amount: 'Amount',

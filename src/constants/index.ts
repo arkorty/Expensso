@@ -48,6 +48,7 @@ export const STATIC_EXCHANGE_RATES: ExchangeRates = {
   INR: 1,
   USD: 84.5, // 1 USD = 84.5 INR
   EUR: 91.2, // 1 EUR = 91.2 INR
+  GBP: 106.8, // 1 GBP = 106.8 INR
 };
 
 // ─── Currency Symbols ────────────────────────────────────────────────
@@ -56,6 +57,7 @@ export const CURRENCY_SYMBOLS: Record<string, string> = {
   INR: '₹',
   USD: '$',
   EUR: '€',
+  GBP: '£',
 };
 
 // ─── Theme Colors ────────────────────────────────────────────────────

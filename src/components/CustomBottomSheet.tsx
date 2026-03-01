@@ -199,6 +199,10 @@ function makeStyles(theme: MD3Theme) {
       backgroundColor: colors.surfaceContainerLow,
       borderTopLeftRadius: shape.extraLarge,
       borderTopRightRadius: shape.extraLarge,
+      borderTopWidth: 1,
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderColor: colors.outlineVariant,
     },
     handleContainer: {
       alignItems: 'center',
