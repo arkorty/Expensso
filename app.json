@@ -1,4 +1,11 @@
 {
   "name": "Expensso",
-  "displayName": "Expensso"
+  "displayName": "Expensso",
+  "version": "0.1.2",
+  "android": {
+    "versionCode": 1
+  },
+  "ios": {
+    "buildNumber": "1"
+  }
 }

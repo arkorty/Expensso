@@ -1,6 +1,6 @@
 {
   "name": "expensso",
-  "version": "0.1.1-alpha",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -8,6 +8,9 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "version:sync": "node scripts/version.js sync",
+    "version:set": "node scripts/version.js set",
+    "version:bump": "node scripts/version.js bump",
     "build:release": "cd android && ./gradlew assembleRelease --no-daemon",
     "build:release:aab": "cd android && ./gradlew bundleRelease --no-daemon"
   },

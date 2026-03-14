@@ -86,6 +86,34 @@ You've successfully run and modified your React Native App. :partying_face:
 
 If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
 
+# Versioning (Single Source of Truth)
+
+App versioning is centralized in [version.config.json](version.config.json).
+
+## Commands
+
+```sh
+# Sync all targets from version.config.json
+npm run version:sync
+
+# Set exact version (and optional build number)
+npm run version:set -- 1.2.0
+npm run version:set -- 1.2.0 42
+
+# Bump and auto-increment build number
+npm run version:bump -- patch
+npm run version:bump -- minor
+npm run version:bump -- major
+npm run version:bump -- build
+```
+
+## Synced targets
+
+- `package.json` → `version`
+- `app.json` → `version`, `android.versionCode`, `ios.buildNumber`
+- `android/app/build.gradle` → `versionName`, `versionCode`
+- `ios/Expensso.xcodeproj/project.pbxproj` → `MARKETING_VERSION`, `CURRENT_PROJECT_VERSION`
+
 # Learn More
 
 To learn more about React Native, take a look at the following resources:

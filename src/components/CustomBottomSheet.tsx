@@ -27,10 +27,12 @@ import {
   StyleSheet,
   TouchableOpacity,
   Pressable,
+  Platform,
 } from 'react-native';
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
+  BottomSheetTextInput,
   BottomSheetView,
   type BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet';
@@ -271,8 +273,6 @@ export interface BottomSheetInputProps {
   autoFocus?: boolean;
 }
 
-import {TextInput} from 'react-native';
-
 export const BottomSheetInput: React.FC<BottomSheetInputProps> = ({
   label,
   value,
@@ -287,6 +287,13 @@ export const BottomSheetInput: React.FC<BottomSheetInputProps> = ({
   const theme = useTheme();
   const {colors, typography, shape, spacing} = theme;
   const [focused, setFocused] = React.useState(false);
+  const inputRef = React.useRef<React.ComponentRef<typeof BottomSheetTextInput>>(null);
+
+  const handlePressIn = React.useCallback(() => {
+    if (Platform.OS === 'android' && focused) {
+      inputRef.current?.focus();
+    }
+  }, [focused]);
 
   const borderColor = error
     ? colors.error
@@ -325,7 +332,8 @@ export const BottomSheetInput: React.FC<BottomSheetInputProps> = ({
             {prefix}
           </Text>
         )}
-        <TextInput
+        <BottomSheetTextInput
+          ref={inputRef}
           style={{
             flex: 1,
             ...typography.bodyLarge,
@@ -340,6 +348,8 @@ export const BottomSheetInput: React.FC<BottomSheetInputProps> = ({
           keyboardType={keyboardType}
           multiline={multiline}
           autoFocus={autoFocus}
+          showSoftInputOnFocus
+          onPressIn={handlePressIn}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
         />
