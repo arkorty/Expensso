@@ -37,7 +37,7 @@ export const mmkvStorage = {
     getStorage().set(KEYS.LOCALE, locale);
   },
 
-  getTheme: (): 'light' | 'dark' | 'system' => {
+  getTheme: (): 'light' | 'dark' | 'black' | 'system' => {
     return (getStorage().getString(KEYS.THEME) as AppSettings['theme']) || 'light';
   },
   setTheme: (theme: AppSettings['theme']) => {

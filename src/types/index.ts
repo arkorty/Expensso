@@ -88,7 +88,7 @@ export interface NetWorthSnapshot {
 export interface AppSettings {
   baseCurrency: Currency;
   locale: string;
-  theme: 'light' | 'dark' | 'system';
+  theme: 'light' | 'dark' | 'black' | 'system';
   biometricEnabled: boolean;
   onboardingComplete: boolean;
 }

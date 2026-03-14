@@ -1,5 +1,7 @@
 import {Category, ExchangeRates, PaymentMethod} from '../types';
 
+export * from './appVersion';
+
 // ─── Default Expense Categories (Indian Context) ────────────────────
 
 export const DEFAULT_EXPENSE_CATEGORIES: Omit<Category, 'id' | 'createdAt'>[] = [

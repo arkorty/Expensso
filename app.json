@@ -1,7 +1,7 @@
 {
   "name": "Expensso",
   "displayName": "Expensso",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "android": {
     "versionCode": 1
   },

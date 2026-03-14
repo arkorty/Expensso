@@ -9,6 +9,7 @@ const packagePath = path.join(rootDir, 'package.json');
 const appJsonPath = path.join(rootDir, 'app.json');
 const androidGradlePath = path.join(rootDir, 'android', 'app', 'build.gradle');
 const iosPbxprojPath = path.join(rootDir, 'ios', 'Expensso.xcodeproj', 'project.pbxproj');
+const appVersionTsPath = path.join(rootDir, 'src', 'constants', 'appVersion.ts');
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -69,6 +70,18 @@ function replaceOrThrow(content, regex, replacement, targetName) {
   return updated;
 }
 
+function writeAppVersionTs({version, buildNumber}) {
+  const content = [
+    `export const APP_VERSION = '${version}';`,
+    `export const APP_BUILD_NUMBER = ${buildNumber};`,
+    'export const APP_VERSION_LABEL = `${APP_VERSION} (${APP_BUILD_NUMBER})`;',
+    '',
+  ].join('\n');
+
+  fs.mkdirSync(path.dirname(appVersionTsPath), {recursive: true});
+  fs.writeFileSync(appVersionTsPath, content, 'utf8');
+}
+
 function syncToTargets({version, buildNumber}) {
   const packageJson = readJson(packagePath);
   packageJson.version = version;
@@ -109,6 +122,8 @@ function syncToTargets({version, buildNumber}) {
     'iOS CURRENT_PROJECT_VERSION',
   );
   fs.writeFileSync(iosPbxprojPath, pbxproj, 'utf8');
+
+  writeAppVersionTs({version, buildNumber});
 }
 
 function saveConfig(config) {

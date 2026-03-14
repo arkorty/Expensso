@@ -8,7 +8,7 @@
 import React, {createContext, useContext, useMemo} from 'react';
 import {useColorScheme} from 'react-native';
 import {useSettingsStore} from '../store/settingsStore';
-import {LightTheme, DarkTheme} from './md3';
+import {LightTheme, DarkTheme, BlackTheme} from './md3';
 import type {MD3Theme} from './md3';
 
 const ThemeContext = createContext<MD3Theme>(LightTheme);
@@ -18,6 +18,7 @@ export const ThemeProvider: React.FC<{children: React.ReactNode}> = ({children})
   const systemScheme = useColorScheme();
 
   const resolvedTheme = useMemo<MD3Theme>(() => {
+    if (themeSetting === 'black') return BlackTheme;
     if (themeSetting === 'dark') return DarkTheme;
     if (themeSetting === 'light') return LightTheme;
     return systemScheme === 'dark' ? DarkTheme : LightTheme;

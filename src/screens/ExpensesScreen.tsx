@@ -480,7 +480,7 @@ function makeStyles(theme: MD3Theme) {
       flexDirection: 'row',
       gap: spacing.md,
       marginTop: spacing.sm,
-      marginBottom: spacing.lg,
+      marginBottom: spacing.xs,
     },
     summaryItem: {
       flex: 1,
@@ -504,7 +504,8 @@ function makeStyles(theme: MD3Theme) {
       flex: 1,
       backgroundColor: colors.surface,
       marginHorizontal: spacing.xl,
-      marginTop: spacing.md,
+      marginTop: spacing.xs,
+      marginBottom: spacing.md,
       borderRadius: shape.large,
       borderWidth: 1,
       borderColor: colors.outlineVariant,

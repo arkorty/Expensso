@@ -9,64 +9,64 @@
 
 export const MD3LightColors = {
   // Primary
-  primary: '#6750A4',
+  primary: '#4078F2',
   onPrimary: '#FFFFFF',
-  primaryContainer: '#EADDFF',
-  onPrimaryContainer: '#21005D',
+  primaryContainer: '#DCE6FF',
+  onPrimaryContainer: '#1E3E8A',
 
   // Secondary
-  secondary: '#625B71',
+  secondary: '#A626A4',
   onSecondary: '#FFFFFF',
-  secondaryContainer: '#E8DEF8',
-  onSecondaryContainer: '#1D192B',
+  secondaryContainer: '#F3E5F5',
+  onSecondaryContainer: '#4E1A4C',
 
   // Tertiary (Fintech Teal)
-  tertiary: '#00897B',
+  tertiary: '#0184BC',
   onTertiary: '#FFFFFF',
-  tertiaryContainer: '#A7F3D0',
-  onTertiaryContainer: '#00382E',
+  tertiaryContainer: '#D8F1FC',
+  onTertiaryContainer: '#004B6C',
 
   // Error
-  error: '#B3261E',
+  error: '#E45649',
   onError: '#FFFFFF',
-  errorContainer: '#F9DEDC',
-  onErrorContainer: '#410E0B',
+  errorContainer: '#FCE3E1',
+  onErrorContainer: '#7A211C',
 
   // Success (custom MD3 extension)
-  success: '#1B873B',
+  success: '#50A14F',
   onSuccess: '#FFFFFF',
-  successContainer: '#D4EDDA',
-  onSuccessContainer: '#0A3D1B',
+  successContainer: '#DDF3D1',
+  onSuccessContainer: '#1F4D1E',
 
   // Warning (custom MD3 extension)
-  warning: '#E65100',
+  warning: '#C18401',
   onWarning: '#FFFFFF',
-  warningContainer: '#FFE0B2',
-  onWarningContainer: '#3E2723',
+  warningContainer: '#F8EACB',
+  onWarningContainer: '#5C4300',
 
   // Surface
-  background: '#FFFBFE',
-  onBackground: '#1C1B1F',
-  surface: '#FFFBFE',
-  onSurface: '#1C1B1F',
-  surfaceVariant: '#E7E0EC',
-  onSurfaceVariant: '#49454F',
-  surfaceDim: '#DED8E1',
-  surfaceBright: '#FFF8FF',
+  background: '#FAFAFA',
+  onBackground: '#383A42',
+  surface: '#FAFAFA',
+  onSurface: '#383A42',
+  surfaceVariant: '#E9ECF3',
+  onSurfaceVariant: '#4B5260',
+  surfaceDim: '#EDEFF2',
+  surfaceBright: '#FFFFFF',
   surfaceContainerLowest: '#FFFFFF',
-  surfaceContainerLow: '#F7F2FA',
-  surfaceContainer: '#F3EDF7',
-  surfaceContainerHigh: '#ECE6F0',
-  surfaceContainerHighest: '#E6E0E9',
+  surfaceContainerLow: '#F4F5F7',
+  surfaceContainer: '#EEF0F4',
+  surfaceContainerHigh: '#E8EBF0',
+  surfaceContainerHighest: '#E2E6EC',
 
   // Outline
-  outline: '#79747E',
-  outlineVariant: '#CAC4D0',
+  outline: '#7F8693',
+  outlineVariant: '#BCC3CF',
 
   // Inverse
-  inverseSurface: '#313033',
-  inverseOnSurface: '#F4EFF4',
-  inversePrimary: '#D0BCFF',
+  inverseSurface: '#383A42',
+  inverseOnSurface: '#FAFAFA',
+  inversePrimary: '#8FB1FF',
 
   // Scrim & Shadow
   scrim: '#000000',
@@ -74,95 +74,112 @@ export const MD3LightColors = {
 
   // ─── App-Specific Semantic Colors ─────────────────────────────
 
-  income: '#1B873B',
-  expense: '#B3261E',
-  asset: '#6750A4',
-  liability: '#E65100',
+  income: '#50A14F',
+  expense: '#E45649',
+  asset: '#4078F2',
+  liability: '#C18401',
 
   // Chart palette (MD3 tonal)
   chartColors: [
-    '#6750A4', '#00897B', '#1E88E5', '#E65100',
-    '#8E24AA', '#00ACC1', '#43A047', '#F4511E',
-    '#5C6BC0', '#FFB300',
+    '#4078F2', '#A626A4', '#0184BC', '#50A14F',
+    '#E45649', '#C18401', '#56B6C2', '#C678DD',
+    '#61AFEF', '#D19A66',
   ],
 };
 
 export const MD3DarkColors: typeof MD3LightColors = {
   // Primary
-  primary: '#D0BCFF',
-  onPrimary: '#381E72',
-  primaryContainer: '#4F378B',
-  onPrimaryContainer: '#EADDFF',
+  primary: '#61AFEF',
+  onPrimary: '#1B2838',
+  primaryContainer: '#2C3E55',
+  onPrimaryContainer: '#D6E9FF',
 
   // Secondary
-  secondary: '#CCC2DC',
-  onSecondary: '#332D41',
-  secondaryContainer: '#4A4458',
-  onSecondaryContainer: '#E8DEF8',
+  secondary: '#C678DD',
+  onSecondary: '#2F1B36',
+  secondaryContainer: '#4B2F55',
+  onSecondaryContainer: '#F0D7F6',
 
   // Tertiary
-  tertiary: '#4DB6AC',
-  onTertiary: '#003730',
-  tertiaryContainer: '#005048',
-  onTertiaryContainer: '#A7F3D0',
+  tertiary: '#56B6C2',
+  onTertiary: '#102D31',
+  tertiaryContainer: '#1F4A50',
+  onTertiaryContainer: '#CDEFF3',
 
   // Error
-  error: '#F2B8B5',
-  onError: '#601410',
-  errorContainer: '#8C1D18',
-  onErrorContainer: '#F9DEDC',
+  error: '#E06C75',
+  onError: '#3A1519',
+  errorContainer: '#5A232A',
+  onErrorContainer: '#FFD9DC',
 
   // Success
-  success: '#81C784',
-  onSuccess: '#0A3D1B',
-  successContainer: '#1B5E20',
-  onSuccessContainer: '#D4EDDA',
+  success: '#98C379',
+  onSuccess: '#1B2A17',
+  successContainer: '#2D4524',
+  onSuccessContainer: '#DDF3D1',
 
   // Warning
-  warning: '#FFB74D',
-  onWarning: '#3E2723',
-  warningContainer: '#BF360C',
-  onWarningContainer: '#FFE0B2',
+  warning: '#E5C07B',
+  onWarning: '#342915',
+  warningContainer: '#5A4728',
+  onWarningContainer: '#FFE8C1',
 
   // Surface
-  background: '#141218',
-  onBackground: '#E6E0E9',
-  surface: '#141218',
-  onSurface: '#E6E0E9',
-  surfaceVariant: '#49454F',
-  onSurfaceVariant: '#CAC4D0',
-  surfaceDim: '#141218',
-  surfaceBright: '#3B383E',
-  surfaceContainerLowest: '#0F0D13',
-  surfaceContainerLow: '#1D1B20',
-  surfaceContainer: '#211F26',
-  surfaceContainerHigh: '#2B2930',
-  surfaceContainerHighest: '#36343B',
+  background: '#282C34',
+  onBackground: '#E6EAF0',
+  surface: '#282C34',
+  onSurface: '#E6EAF0',
+  surfaceVariant: '#3A404B',
+  onSurfaceVariant: '#BCC3CF',
+  surfaceDim: '#21252B',
+  surfaceBright: '#353B45',
+  surfaceContainerLowest: '#1E2228',
+  surfaceContainerLow: '#2B3038',
+  surfaceContainer: '#313741',
+  surfaceContainerHigh: '#393F4A',
+  surfaceContainerHighest: '#424955',
 
   // Outline
-  outline: '#938F99',
-  outlineVariant: '#49454F',
+  outline: '#8E97A8',
+  outlineVariant: '#5A6271',
 
   // Inverse
-  inverseSurface: '#E6E0E9',
-  inverseOnSurface: '#313033',
-  inversePrimary: '#6750A4',
+  inverseSurface: '#ABB2BF',
+  inverseOnSurface: '#282C34',
+  inversePrimary: '#4078F2',
 
   // Scrim & Shadow
   scrim: '#000000',
   shadow: '#000000',
 
   // App-Specific
-  income: '#81C784',
-  expense: '#F2B8B5',
-  asset: '#D0BCFF',
-  liability: '#FFB74D',
+  income: '#98C379',
+  expense: '#E06C75',
+  asset: '#61AFEF',
+  liability: '#E5C07B',
 
   chartColors: [
-    '#D0BCFF', '#4DB6AC', '#64B5F6', '#FFB74D',
-    '#CE93D8', '#4DD0E1', '#81C784', '#FF8A65',
-    '#9FA8DA', '#FFD54F',
+    '#61AFEF', '#C678DD', '#56B6C2', '#98C379',
+    '#E06C75', '#E5C07B', '#D19A66', '#ABB2BF',
+    '#7F848E', '#8BE9FD',
   ],
+};
+
+export const MD3BlackColors: typeof MD3LightColors = {
+  ...MD3DarkColors,
+  background: '#000000',
+  surface: '#000000',
+  surfaceDim: '#000000',
+  surfaceBright: '#0D0D0D',
+  surfaceContainerLowest: '#000000',
+  surfaceContainerLow: '#070707',
+  surfaceContainer: '#0E0E0E',
+  surfaceContainerHigh: '#141414',
+  surfaceContainerHighest: '#1B1B1B',
+  inverseSurface: '#F1F1F1',
+  inverseOnSurface: '#000000',
+  outline: '#767676',
+  outlineVariant: '#333333',
 };
 
 // ─── MD3 Typography Scale ────────────────────────────────────────────
@@ -375,6 +392,15 @@ export const LightTheme: MD3Theme = {
 
 export const DarkTheme: MD3Theme = {
   colors: MD3DarkColors,
+  typography: MD3Typography,
+  elevation: MD3Elevation,
+  shape: MD3Shape,
+  spacing: Spacing,
+  isDark: true,
+};
+
+export const BlackTheme: MD3Theme = {
+  colors: MD3BlackColors,
   typography: MD3Typography,
   elevation: MD3Elevation,
   shape: MD3Shape,

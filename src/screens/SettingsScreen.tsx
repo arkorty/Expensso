@@ -19,25 +19,27 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Animated, {FadeIn, FadeInDown} from 'react-native-reanimated';
 
 import {
-  CustomBottomSheet,
+  SettingsSelectionSheet,
   triggerHaptic,
 } from '../components';
-import type {CustomBottomSheetHandle} from '../components';
+import type {CustomBottomSheetHandle, SettingsSelectionOption} from '../components';
+import {APP_VERSION_LABEL} from '../constants';
 import {useSettingsStore} from '../store';
 import {useTheme} from '../theme';
 import type {MD3Theme} from '../theme';
 import {Currency} from '../types';
 
-const CURRENCIES: {label: string; value: Currency; icon: string}[] = [
+const CURRENCIES: SettingsSelectionOption<Currency>[] = [
   {label: 'Indian Rupee (\u20B9)', value: 'INR', icon: 'currency-inr'},
   {label: 'US Dollar ($)', value: 'USD', icon: 'currency-usd'},
   {label: 'Euro (\u20AC)', value: 'EUR', icon: 'currency-eur'},
   {label: 'British Pound (\u00A3)', value: 'GBP', icon: 'currency-gbp'},
 ];
 
-const THEMES: {label: string; value: 'light' | 'dark' | 'system'; icon: string}[] = [
+const THEMES: SettingsSelectionOption<'light' | 'dark' | 'black' | 'system'>[] = [
   {label: 'Light', value: 'light', icon: 'white-balance-sunny'},
   {label: 'Dark', value: 'dark', icon: 'moon-waning-crescent'},
+  {label: 'Black', value: 'black', icon: 'theme-light-dark'},
   {label: 'System', value: 'system', icon: 'theme-light-dark'},
 ];
 
@@ -228,7 +230,7 @@ const SettingsScreen: React.FC = () => {
               icon="information"
               iconColor="#7E57C2"
               label={t('settings.version')}
-              value="0.1.1-alpha"
+              value={APP_VERSION_LABEL}
             />
           </View>
         </Animated.View>
@@ -238,79 +240,25 @@ const SettingsScreen: React.FC = () => {
         </Text>
       </ScrollView>
 
-      {/* Currency Selection Bottom Sheet */}
-      <CustomBottomSheet
+      <SettingsSelectionSheet
         ref={currencySheetRef}
         title={t('settings.baseCurrency')}
+        options={CURRENCIES}
+        selectedValue={baseCurrency}
+        onSelect={setBaseCurrency}
         enableDynamicSizing
-        snapPoints={['40%']}>
-        {CURRENCIES.map(c => (
-          <Pressable
-            key={c.value}
-            style={[
-              s.selectionRow,
-              c.value === baseCurrency && {backgroundColor: colors.primaryContainer},
-            ]}
-            onPress={() => {
-              triggerHaptic('selection');
-              setBaseCurrency(c.value);
-              currencySheetRef.current?.dismiss();
-            }}>
-            <Icon
-              name={c.icon}
-              size={20}
-              color={c.value === baseCurrency ? colors.primary : colors.onSurfaceVariant}
-            />
-            <Text
-              style={[
-                s.selectionLabel,
-                c.value === baseCurrency && {color: colors.onPrimaryContainer, fontWeight: '600'},
-              ]}>
-              {c.label}
-            </Text>
-            {c.value === baseCurrency && (
-              <Icon name="check" size={20} color={colors.primary} />
-            )}
-          </Pressable>
-        ))}
-      </CustomBottomSheet>
+        snapPoints={['40%']}
+      />
 
-      {/* Theme Selection Bottom Sheet */}
-      <CustomBottomSheet
+      <SettingsSelectionSheet
         ref={themeSheetRef}
         title={t('settings.theme')}
+        options={THEMES}
+        selectedValue={themeSetting}
+        onSelect={setTheme}
         enableDynamicSizing
-        snapPoints={['35%']}>
-        {THEMES.map(th => (
-          <Pressable
-            key={th.value}
-            style={[
-              s.selectionRow,
-              th.value === themeSetting && {backgroundColor: colors.primaryContainer},
-            ]}
-            onPress={() => {
-              triggerHaptic('selection');
-              setTheme(th.value);
-              themeSheetRef.current?.dismiss();
-            }}>
-            <Icon
-              name={th.icon}
-              size={20}
-              color={th.value === themeSetting ? colors.primary : colors.onSurfaceVariant}
-            />
-            <Text
-              style={[
-                s.selectionLabel,
-                th.value === themeSetting && {color: colors.onPrimaryContainer, fontWeight: '600'},
-              ]}>
-              {th.label}
-            </Text>
-            {th.value === themeSetting && (
-              <Icon name="check" size={20} color={colors.primary} />
-            )}
-          </Pressable>
-        ))}
-      </CustomBottomSheet>
+        snapPoints={['35%']}
+      />
     </SafeAreaView>
   );
 };
@@ -362,20 +310,6 @@ function makeStyles(theme: MD3Theme) {
       color: colors.onSurfaceVariant,
       marginTop: spacing.xxxl,
       marginBottom: spacing.xxxl + 8,
-    },
-    selectionRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: spacing.md,
-      paddingVertical: spacing.lg,
-      paddingHorizontal: spacing.lg,
-      borderRadius: shape.medium,
-      marginBottom: spacing.xs,
-    },
-    selectionLabel: {
-      flex: 1,
-      ...typography.bodyLarge,
-      color: colors.onSurface,
     },
   });
 }

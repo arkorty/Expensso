@@ -91,7 +91,13 @@ const CustomBottomSheetInner = forwardRef<CustomBottomSheetHandle, CustomBottomS
     const theme = useTheme();
     const s = makeStyles(theme);
     const sheetRef = useRef<BottomSheet>(null);
+    const [sheetIndex, setSheetIndex] = React.useState(-1);
     const snapPoints = useMemo(() => snapPointsProp ?? ['60%'], [snapPointsProp]);
+
+    const handleClose = useCallback(() => {
+      setSheetIndex(-1);
+      onDismiss?.();
+    }, [onDismiss]);
 
     // Imperative handle
     useImperativeHandle(ref, () => ({
@@ -138,7 +144,8 @@ const CustomBottomSheetInner = forwardRef<CustomBottomSheetHandle, CustomBottomS
         snapPoints={enableDynamicSizing ? undefined : snapPoints}
         enableDynamicSizing={enableDynamicSizing}
         enablePanDownToClose
-        onClose={onDismiss}
+        onClose={handleClose}
+        onChange={setSheetIndex}
         backdropComponent={renderBackdrop}
         handleComponent={renderHandle}
         backgroundStyle={s.background}
@@ -174,12 +181,14 @@ const CustomBottomSheetInner = forwardRef<CustomBottomSheetHandle, CustomBottomS
         )}
 
         {/* Sheet Body */}
-        <Wrapper
-          style={s.body}
-          contentContainerStyle={s.bodyContent}
-          showsVerticalScrollIndicator={false}>
-          {children}
-        </Wrapper>
+        {sheetIndex >= 0 && (
+          <Wrapper
+            style={s.body}
+            contentContainerStyle={s.bodyContent}
+            showsVerticalScrollIndicator={false}>
+            {children}
+          </Wrapper>
+        )}
       </BottomSheet>
     );
   },
